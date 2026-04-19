@@ -1,4 +1,5 @@
 import os
+import time
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -23,6 +24,7 @@ predict_transforms = transforms.Compose([
 
 
 def train_model():
+    start_time = time.time()
     train_dataset = datasets.ImageFolder(root="datasets/train", transform=train_transforms)
     valid_dataset = datasets.ImageFolder(root="datasets/valid", transform=predict_transforms)
     test_dataset  = datasets.ImageFolder(root="datasets/test",  transform=predict_transforms)
@@ -113,3 +115,7 @@ def train_model():
 
     torch.save(model.state_dict(), "banana_clock_model.pth")
     print("Model saved as banana_clock_model.pth")
+
+    elapsed = time.time() - start_time
+    minutes, seconds = divmod(int(elapsed), 60)
+    print(f"Training completed in {minutes}m {seconds}s")

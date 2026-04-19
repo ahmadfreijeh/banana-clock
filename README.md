@@ -8,10 +8,10 @@ BananaClock uses a fine-tuned **Microsoft ResNet-50** model (via Hugging Face `t
 
 | Stage      | Description                 |
 | ---------- | --------------------------- |
-| `unripe`   | Green, not ready yet        |
-| `ripe`     | Perfect to eat              |
 | `overripe` | Soft and spotty, eat soon   |
-| `inedible` | Past the point of no return |
+| `ripe`     | Perfect to eat              |
+| `rotten`   | Past the point of no return |
+| `unripe`   | Green, not ready yet        |
 
 The model predicts the stage and returns a human-readable time estimate based on the result.
 
