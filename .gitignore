@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Ignore datasets and model checkpoints
+datasets/
+checkpoints/
