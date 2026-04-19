@@ -54,17 +54,58 @@ cp .env.example .env
 
 ## Training
 
-Place your training images in the following structure:
+### Dataset
+
+This project was trained on the **Banana Ripeness Classification Dataset** from Kaggle:
+[https://www.kaggle.com/datasets/shahriar26s/banana-ripeness-classification-dataset](https://www.kaggle.com/datasets/shahriar26s/banana-ripeness-classification-dataset)
+
+To download it, install the Kaggle CLI and run:
+
+```bash
+pip install kaggle
+kaggle datasets download -d shahriar26s/banana-ripeness-classification-dataset
+unzip banana-ripeness-classification-dataset.zip -d datasets/
+```
+
+The dataset must be organised into three pre-split folders:
 
 ```
 datasets/
-├── unripe/
-├── ripe/
-├── overripe/
-└── inedible/
+├── train/
+│   ├── overripe/
+│   ├── ripe/
+│   ├── rotten/
+│   └── unripe/
+├── valid/
+│   ├── overripe/
+│   ├── ripe/
+│   ├── rotten/
+│   └── unripe/
+└── test/
+    ├── overripe/
+    ├── ripe/
+    ├── rotten/
+    └── unripe/
 ```
 
-Training runs automatically on server startup. The trained weights are saved to `banana_clock_model.pth`.
+Training runs automatically on FastAPI server startup via `train_model()`. The trained weights are saved to `banana_clock_model.pth`.
+
+To retrain manually:
+
+```bash
+source .venv/bin/activate
+python -c "from app.services.train import train_model; train_model()"
+```
+
+### Using with Other Fruits 🍎🍊🥭
+
+BananaTimer is not limited to bananas. The model architecture (ResNet-50 with a 4-class head) works for any fruit with distinct ripeness stages. To adapt it:
+
+1. Collect images for your fruit across 4 ripeness stages (e.g. `unripe`, `ripe`, `overripe`, `inedible`)
+2. Organise them into `datasets/train/`, `datasets/valid/`, `datasets/test/` with one subfolder per class
+3. Update `CLASS_NAMES` in `app/services/model.py` to match your folder names
+4. Update `RIPENESS_VALUES` and `DAYS_LABEL` in `app/models/scan.py` to reflect the new stages
+5. Retrain — the rest of the pipeline (API, Streamlit UI, scan history, predictions) works unchanged
 
 ## Running the API
 

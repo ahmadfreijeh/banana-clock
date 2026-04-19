@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -37,7 +38,17 @@ def train_model():
     model = load_model()
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.classifier.parameters(), lr=0.001)
-    device = torch.device("mps" if torch.cuda.is_available() else "cpu")
+
+    _device_env = os.getenv("TORCH_DEVICE", "").strip().lower()
+    if _device_env:
+        device = torch.device(_device_env)
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")       # Apple Silicon GPU
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")      # NVIDIA GPU
+    else:
+        device = torch.device("cpu")
+    print(f"Using device: {device}")
     model.to(device)
     
 
