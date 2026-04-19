@@ -1,10 +1,10 @@
-# 🍌 BananaTimer
+# 🍌 BananaClock
 
 An AI-powered banana ripeness detector. Upload a photo of a banana and get back its ripeness stage along with an estimate of how many days until it becomes inedible.
 
 ## How It Works
 
-BananaTimer uses a fine-tuned **Microsoft ResNet-50** model (via Hugging Face `transformers`) trained on banana images across 4 ripeness stages:
+BananaClock uses a fine-tuned **Microsoft ResNet-50** model (via Hugging Face `transformers`) trained on banana images across 4 ripeness stages:
 
 | Stage      | Description                 |
 | ---------- | --------------------------- |
@@ -99,7 +99,7 @@ python -c "from app.services.train import train_model; train_model()"
 
 ### Using with Other Fruits 🍎🍊🥭
 
-BananaTimer is not limited to bananas. The model architecture (ResNet-50 with a 4-class head) works for any fruit with distinct ripeness stages. To adapt it:
+BananaClock is not limited to bananas. The model architecture (ResNet-50 with a 4-class head) works for any fruit with distinct ripeness stages. To adapt it:
 
 1. Collect images for your fruit across 4 ripeness stages (e.g. `unripe`, `ripe`, `overripe`, `inedible`)
 2. Organise them into `datasets/train/`, `datasets/valid/`, `datasets/test/` with one subfolder per class
