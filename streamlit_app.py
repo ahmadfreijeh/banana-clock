@@ -16,7 +16,7 @@ from app.models.user import User
 from app.services import scan_service
 from app.services.predict import predict
 
-st.set_page_config(page_title="🍌 BananaTimer", layout="centered")
+st.set_page_config(page_title="🍌 BananaClock", layout="centered")
 
 
 # ── async runner ──────────────────────────────────────────────────────────────
