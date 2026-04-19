@@ -8,9 +8,13 @@ from app.api.router import router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     import asyncio
+    import os
     from app.services.train import train_model
-    print("Starting training...")
-    await asyncio.to_thread(train_model)
+    if os.getenv("RETRAIN", "true").strip().lower() == "true":
+        print("Starting training...")
+        await asyncio.to_thread(train_model)
+    else:
+        print("RETRAIN=false — skipping training, using existing model.")
     yield
 
 

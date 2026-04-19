@@ -52,6 +52,17 @@ Copy the environment file and configure your database URL:
 cp .env.example .env
 ```
 
+### Environment Variables
+
+| Variable             | Default | Description                                                                                |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `DATABASE_URL`       | —       | PostgreSQL connection string (asyncpg)                                                     |
+| `JWT_SECRET`         | —       | Secret key for signing JWT tokens                                                          |
+| `JWT_ALGORITHM`      | `HS256` | JWT algorithm                                                                              |
+| `JWT_EXPIRE_MINUTES` | `60`    | Token expiry in minutes                                                                    |
+| `RETRAIN`            | `true`  | Set to `false` to skip retraining on startup and use the existing `banana_clock_model.pth` |
+| `TORCH_DEVICE`       | auto    | Force training device: `mps`, `cuda`, or `cpu`. Auto-detected if unset.                    |
+
 ## Training
 
 ### Dataset
