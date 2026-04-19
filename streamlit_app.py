@@ -192,7 +192,7 @@ elif auth_status and page == "🍌 Scan":
             ripeness = result["ripeness"]
             days = result["days_until_inedible"]
 
-            stage_emoji = {"unripe": "🟢", "ripe": "🟡", "overripe": "🟠", "inedible": "🔴"}
+            stage_emoji = {"unripe": "🟢", "ripe": "🟡", "overripe": "🟠", "rotten": "🔴"}
             st.success(f"{stage_emoji.get(ripeness, '')} **Ripeness:** {ripeness.capitalize()}")
             st.info(f"⏱ **Days estimate:** {days}")
 
@@ -225,7 +225,7 @@ elif auth_status and page == "📈 History & Prediction":
         st.subheader("Ripeness Progression")
         chart_df = df.set_index("date")[["stage"]].rename(columns={"stage": "Stage Index"})
         st.line_chart(chart_df)
-        st.caption("Stage index: 1 = Unripe · 2 = Ripe · 3 = Overripe · 4 = Inedible")
+        st.caption("Stage index: 1 = Overripe · 2 = Ripe · 3 = Rotten · 4 = Unripe")
 
         st.divider()
         st.subheader("Prediction")

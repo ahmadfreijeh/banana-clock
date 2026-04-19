@@ -4,7 +4,7 @@ from transformers import AutoFeatureExtractor, ResNetForImageClassification
 
 
 NUM_CLASSES = 4
-CLASS_NAMES = ['unripe', 'ripe', 'rotten', 'inedible']
+CLASS_NAMES = ['overripe', 'ripe', 'rotten', 'unripe']
 
 
 def load_model():

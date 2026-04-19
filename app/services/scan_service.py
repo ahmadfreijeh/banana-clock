@@ -62,8 +62,8 @@ async def predict_inedible_day(user_id: uuid.UUID, db: AsyncSession) -> dict:
       1. Fetches all scans for the user, ordered by date (oldest first).
       2. Converts scan dates to relative day numbers (day 0 = first scan).
       3. Fits a straight line through the (day, stage_index) data points using
-         numpy's polyfit — stage_index goes from 1 (unripe) to 4 (inedible).
-      4. Solves for the day when the fitted line reaches stage 4 (inedible).
+         numpy's polyfit — stage_index goes from 1 (overripe) to 4 (unripe).
+      4. Solves for the day when the fitted line reaches stage 4 (unripe/rotten).
       5. Returns days_left (from the last scan) and the absolute predicted day number.
 
     Requires at least 2 scans. Raises ValueError if there is no progression

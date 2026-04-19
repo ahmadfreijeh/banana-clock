@@ -5,13 +5,13 @@ from sqlalchemy import String, Integer, ForeignKey, DateTime
 from app.models.base import Base, UUIDMixin, TimestampMixin
 
 
-RIPENESS_VALUES = ['unripe', 'ripe', 'overripe', 'inedible']
+RIPENESS_VALUES = ['overripe', 'ripe', 'rotten', 'unripe']
 STAGE_INDEX_MAP = {label: i + 1 for i, label in enumerate(RIPENESS_VALUES)}
 DAYS_LABEL = {
     "unripe": "5-7 days until ripe, 12-14 days until inedible",
     "ripe": "Perfect now! 4-6 days until overripe",
     "overripe": "1-2 days left, eat soon!",
-    "inedible": "Too late! Time to throw it away",
+    "rotten": "Too late! Time to throw it away",
 }
 
 
