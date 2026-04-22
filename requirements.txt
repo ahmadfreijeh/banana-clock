@@ -28,6 +28,7 @@ torchvision==0.26.0
 transformers==5.5.4
 pillow==12.2.0
 numpy==2.2.6
+matplotlib==3.8.0
 
 # Streamlit UI
 streamlit==1.56.0

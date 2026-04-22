@@ -108,6 +108,10 @@ source .venv/bin/activate
 python -c "from app.services.train import train_model; train_model()"
 ```
 
+After training completes, a loss graph is saved to `graphs/loss_over_time.png`. It plots training loss, validation loss, and test loss across all 10 epochs so you can visually inspect how the model converged.
+
+![Loss over time](graphs/loss_over_time.png)
+
 ### Using with Other Fruits 🍎🍊🥭
 
 BananaClock is not limited to bananas. The model architecture (ResNet-50 with a 4-class head) works for any fruit with distinct ripeness stages. To adapt it:

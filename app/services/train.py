@@ -5,6 +5,9 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
 from app.services.model import load_model
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 
 train_transforms = transforms.Compose([
@@ -41,6 +44,9 @@ def train_model():
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.classifier.parameters(), lr=0.001)
 
+    epoch_train_losses = []
+    epoch_valid_losses = []
+
     _device_env = os.getenv("TORCH_DEVICE", "").strip().lower()
     if _device_env:
         device = torch.device(_device_env)
@@ -70,6 +76,7 @@ def train_model():
             if (batch_idx + 1) % 10 == 0:
                 print(f"  Epoch {epoch+1} | Batch {batch_idx+1}/{len(train_loader)} | Loss: {loss.item():.4f}", flush=True)
         avg_train_loss = train_loss / len(train_loader)
+        epoch_train_losses.append(avg_train_loss)
 
         # Validation phase
         model.eval()
@@ -86,6 +93,7 @@ def train_model():
                 correct += (preds == labels).sum().item()
                 total += labels.size(0)
         avg_valid_loss = valid_loss / len(valid_loader)
+        epoch_valid_losses.append(avg_valid_loss)
         accuracy = correct / total * 100
 
         print(
@@ -119,3 +127,22 @@ def train_model():
     elapsed = time.time() - start_time
     minutes, seconds = divmod(int(elapsed), 60)
     print(f"Training completed in {minutes}m {seconds}s")
+
+    # Plot epoch losses
+    epochs_range = range(1, num_epochs + 1)
+    plt.figure(figsize=(10, 5))
+    plt.plot(epochs_range, epoch_train_losses, marker='o', label='Training Loss')
+    plt.plot(epochs_range, epoch_valid_losses, marker='s', label='Validation Loss')
+    plt.axhline(y=avg_test_loss, linestyle='--', label=f'Test Loss ({avg_test_loss:.4f})')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss Per Epoch')
+    plt.xticks(epochs_range)
+    plt.legend()
+    plt.grid()
+    os.makedirs("graphs", exist_ok=True)
+    plt.savefig("graphs/loss_over_time.png")
+    plt.close()
+    print("Loss plot saved as graphs/loss_over_time.png")
+
+
