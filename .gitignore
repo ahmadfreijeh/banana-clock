@@ -3,9 +3,8 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.claude/
 
 # Ignore datasets and model checkpoints
 datasets/
 checkpoints/
-
-.claude/
